@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#2ea2f5</color>
+    <color name="colorPrimaryDark">#2ea2f5</color>
+    <color name="colorAccent">#2ea2f5</color>
 
     <color name="press">#e8e8e8</color>
     <color name="white">#FFFFFF</color>
 
     <color name="tab_text_checked">#0099ff</color>
     <color name="tab_text_normal">#abadbb</color>
+    <color name="dark_gray">#555555</color>
+    <color name="light_gray">#cccccc</color>
+
+    <!-- 蓝色 -->
+    <color name="blue">#2ea2f5</color>
+    <color name="light_blue">#e4f5e9</color>
+
+    <!-- 紫色 -->
+    <color name="purple">#ea79fb</color>
+    <color name="text_light_gray">#999999</color>
+    <color name="text_lighter_gray">#bbbbbb</color>
+    <color name="num_light_gray">#666666</color>
+    <color name="text_dark_red">#ff4c4c</color>
+    <color name="half_transparent">#80000000</color>
+    <color name="half_white">#b8FFFFFF</color>
+    <color name="bg_check_result">#def4e9</color>
+    <color name="bg_week">#e4f7e3</color>
+    <color name="navi_color">#2ea2f5</color>
+    <color name="dialog_btn_bg">#eaeaea</color>
+
+
+    <color name="card_bg_unactived">#eaeaea</color>
+    <color name="card_bg_actived">#ff6600</color>
+    <color name="black">#000000</color>
+    <color name="switch_on">#2ea2f5</color>
 </resources>

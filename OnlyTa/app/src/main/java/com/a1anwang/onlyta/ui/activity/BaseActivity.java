@@ -18,6 +18,8 @@ import android.widget.ViewFlipper;
 
 import com.a1anwang.onlyta.App;
 import com.a1anwang.onlyta.R;
+import com.a1anwang.onlyta.ui.views.MyProgressDialog;
+import com.a1anwang.onlyta.util.MySharedPreferences;
 
 /**
  * Created by a1anwang.com on 2017/12/27.
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
 
     public App application;
+    public MySharedPreferences mySharedPreferences;
     protected Context mContext;
 
 
@@ -49,6 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.setContentView(R.layout.activity_base);
         mContext = this;
         application= (App) getApplication();
+        mySharedPreferences=MySharedPreferences.getInstance(mContext);
         fullScreen= isFullScreen();
         setFullScreen(fullScreen);
         initHeaderView();
@@ -289,4 +293,20 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         startActivityForResult(intent, requestCode);
     }
 
+    MyProgressDialog myProgressDialog;
+    public void showProgressDialog(String title) {
+        if (myProgressDialog == null) {
+            myProgressDialog = new MyProgressDialog(this);
+
+            myProgressDialog.setTitle(title);
+        }
+
+        myProgressDialog.show();
+    }
+
+    public void dismissProgressDialog() {
+        if (myProgressDialog != null) {
+            myProgressDialog.dismiss();
+        }
+    }
 }

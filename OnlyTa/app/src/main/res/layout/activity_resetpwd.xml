@@ -1,0 +1,141 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ededed"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_title_height"
+            android:background="@color/navi_color" >
+
+            <ImageButton
+                android:layout_width="55dp"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:onClick="backAction"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_back_white" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="重置密码"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_size" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/hint_phone"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray"
+            android:textColorHint="@color/light_gray"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/text_light_gray" />
+
+        <RelativeLayout
+            android:id="@+id/layout_phone"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" >
+
+            <EditText
+                android:id="@+id/edit_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/hint_code"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray"
+                android:textColorHint="@color/light_gray"
+                android:textSize="16sp" />
+
+            <com.a1anwang.onlyta.ui.views.AuthButton
+                android:id="@+id/btn_get_code"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:onClick="getCodeAction"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="@string/get_verification_code"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/text_light_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" >
+
+            <EditText
+                android:id="@+id/edit_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/hint_pwd"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray"
+                android:textColorHint="@color/light_gray"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/text_light_gray" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:onClick="submitAction"
+            android:text="@string/submit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/button_title_size" />
+    </LinearLayout>
+
+</RelativeLayout>

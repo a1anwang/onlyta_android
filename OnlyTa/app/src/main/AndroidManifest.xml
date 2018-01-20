@@ -13,8 +13,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="21e6b0fda169e678c647753424ebc6f7" />
-        <activity android:name=".ui.activity.LoginActivity"
+        <activity android:name=".ui.activity.LaunchActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/LaunchAppTheme"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,13 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
         <activity android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             >
-
         </activity>
-
+        <activity android:name=".ui.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity android:name=".ui.activity.ForgetPwdActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
         <!--会话界面-->
         <activity
             android:name=".ui.activity.TalkActivity"

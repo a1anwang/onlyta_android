@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:text="TA "
-        android:textSize="30sp"
-        android:layout_height="100dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:text="他的手机:"
-        android:layout_height="50dp" />
-    <EditText
-        android:id="@+id/edit_targetid"
-        android:layout_width="match_parent"
-
-        android:layout_height="50dp" />
-    <Button
-        android:id="@+id/btn_start_talk"
-        android:layout_width="match_parent"
-        android:text="跟他聊"
-        android:layout_height="50dp" />
-
     <FrameLayout
         android:id="@+id/layout_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </FrameLayout>
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_set"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="TA "
+            android:textSize="30sp"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:text="TA的手机:"
+            android:layout_height="50dp" />
+        <EditText
+            android:id="@+id/edit_targetPhone"
+            android:layout_width="match_parent"
+
+            android:layout_height="50dp" />
+        <Button
+            android:id="@+id/btn_start_talk"
+            android:layout_width="match_parent"
+            android:text="跟TA聊"
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

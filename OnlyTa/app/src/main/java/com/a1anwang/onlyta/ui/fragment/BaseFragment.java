@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.a1anwang.onlyta.App;
+import com.a1anwang.onlyta.ui.views.MyProgressDialog;
+import com.a1anwang.onlyta.util.MySharedPreferences;
+
 /**
  * Created by a1anwang.com on 2018/1/2.
  */
@@ -17,10 +21,17 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
     private  View view;
 
+    public MySharedPreferences mySharedPreferences;
+
+    public App application;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getActivity();
+        mySharedPreferences=MySharedPreferences.getInstance(mContext);
+        application= (App) getActivity().getApplication();
         beforeInitView();
         int layoutId=setContentLayout();
         view= inflater.inflate(layoutId, container, false);
@@ -67,5 +78,20 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         onClickEvent(v);
     }
+    MyProgressDialog myProgressDialog;
+    public void showProgressDialog(String title) {
+        if (myProgressDialog == null) {
+            myProgressDialog = new MyProgressDialog(mContext);
 
+            myProgressDialog.setTitle(title);
+        }
+
+        myProgressDialog.show();
+    }
+
+    public void dismissProgressDialog() {
+        if (myProgressDialog != null) {
+            myProgressDialog.dismiss();
+        }
+    }
 }
