@@ -94,4 +94,8 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
             myProgressDialog.dismiss();
         }
     }
+
+    public   void runOnUiThread(Runnable action) {
+        getActivity().runOnUiThread(action);
+    }
 }

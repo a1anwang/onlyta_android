@@ -56,6 +56,19 @@ public class MySharedPreferences {
 		return preferences.getInt("UserId",-1);
 	}
 
+
+	public void saveTargetNickname(String mTargetNickname) {
+		editor.putString("TargetNickname", mTargetNickname);
+		editor.commit();
+	}
+
+
+	public String getTargetNickname( ){
+		return preferences.getString("TargetNickname","");
+	}
+
+
+
 	public void saveHeadImageURL(String url) {
 		editor.putString("HeadImageURL", url);
 		editor.commit();
@@ -64,6 +77,15 @@ public class MySharedPreferences {
 
 	public String getHeadImageURL( ){
 		return preferences.getString("HeadImageURL","");
+	}
+	public void saveGender(int gender) {
+		editor.putInt("gender", gender);
+		editor.commit();
+	}
+
+
+	public int getGender( ){
+		return preferences.getInt("gender",1);
 	}
 
 
@@ -98,4 +120,13 @@ public class MySharedPreferences {
 	public String getRongyunToken( ){
 		return preferences.getString("RongyunToken","");
 	}
+
+	public void saveAutoRespondLocation(boolean flag) {
+		editor.putBoolean("AutoRespondLocation", flag);
+		editor.commit();
+	}
+	public boolean getAutoRespondLocation( ){
+		return preferences.getBoolean("AutoRespondLocation",true);
+	}
+
 }

@@ -8,16 +8,16 @@
         "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/rc_file_icon_audio.png"
     },
     {
-        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f621.png",
-        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/u1f621.png"
+        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_read_receipt_request.png",
+        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/rc_read_receipt_request.png"
     },
     {
         "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_star.png",
         "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/rc_cs_star.png"
     },
     {
-        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_read_receipt_request.png",
-        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/rc_read_receipt_request.png"
+        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f621.png",
+        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/u1f621.png"
     },
     {
         "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f60d.png",
@@ -32,12 +32,12 @@
         "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/rc_send_voice_three.png"
     },
     {
-        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f635.png",
-        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/u1f635.png"
-    },
-    {
         "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f384.png",
         "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/u1f384.png"
+    },
+    {
+        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f635.png",
+        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/drawable-xhdpi/u1f635.png"
     },
     {
         "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_follow.png",

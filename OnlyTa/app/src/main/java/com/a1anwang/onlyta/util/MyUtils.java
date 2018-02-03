@@ -5,6 +5,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by a1anwang.com on 2017/12/27.
  */
@@ -48,5 +51,11 @@ public class MyUtils {
             }
         }
         return false;
+    }
+
+    public static String formatTimeYMDHMS(long milSecond ) {
+        Date date = new Date(milSecond);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
     }
 }

@@ -23,11 +23,11 @@ public class MyImageLoader {
         }
         return instance;
     }
-    public void displayCircleImage(Context mcontext, String url, ImageView imageView){
-        Glide.with(mcontext).load(url).transform(new GlideCircleTransform(mcontext)).into(imageView);
+    public void displayCircleImage(Context mcontext, String url, ImageView imageView,boolean skipMemoryCache){
+        Glide.with(mcontext).load(url).skipMemoryCache(skipMemoryCache).transform(new GlideCircleTransform(mcontext)).into(imageView);
     }
 
-    public void displayImage(Context mcontext, String url, ImageView imageView){
-        Glide.with(mcontext).load(url).centerCrop().into(imageView);
+    public void displayImage(Context mcontext, String url, ImageView imageView ,boolean skipMemoryCache){
+        Glide.with(mcontext).load(url).skipMemoryCache(skipMemoryCache).centerCrop().into(imageView);
     }
 }

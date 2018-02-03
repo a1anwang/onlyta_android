@@ -1,15 +1,20 @@
 package com.a1anwang.onlyta.ui.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.a1anwang.onlyta.R;
+import com.a1anwang.onlyta.service.MainService;
 import com.a1anwang.onlyta.util.MConfig;
 import com.a1anwang.onlyta.util.MyUtils;
 import com.a1anwang.onlyta.util.ToastUtils;
@@ -28,14 +33,28 @@ import io.rong.imlib.model.Conversation;
  * Created by a1anwang.com on 2018/1/2.
  */
 
-public  class TalkFragment extends BaseFragment{
+public  class TalkFragment extends BaseFragment {
     private String mTargetId; //目标 Id
-    private Conversation.ConversationType mConversationType; //会话类型
+
+
+
+    private Button btn_start_talk;
+    private EditText edit_targetPhone;
 
     private LinearLayout layout_set;
-    private FrameLayout layout_content;
-
+    private LinearLayout layout_content;
+    private TextView tv_title;
     boolean hasTargetId;
+
+BroadcastReceiver receiver=new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if(intent.getAction().equals(MainService.Action_Update_Target_Nickname)){
+            String nickname=intent.getStringExtra(MainService.Extra_Target_Nickname);
+            tv_title.setText(nickname);
+        }
+    }
+};
 
     @Override
     public int setContentLayout() {
@@ -45,19 +64,26 @@ public  class TalkFragment extends BaseFragment{
     @Override
     public void beforeInitView() {
 
+        getActivity().registerReceiver(receiver,new IntentFilter(MainService.Action_Update_Target_Nickname));
+
         if(application.userAccount.target_uid<=0){
             hasTargetId=false;
         }else{
             hasTargetId=true;
             mTargetId=application.userAccount.target_uid+"";
         }
-
     }
 
-    private Button btn_start_talk;
-    private EditText edit_targetPhone;
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(receiver);
+    }
+
     @Override
     public void initView() {
+        tv_title=findViewById(R.id.tv_title);
         layout_set=findViewById(R.id.layout_set);
         layout_content=findViewById(R.id.layout_content);
 
@@ -71,26 +97,32 @@ public  class TalkFragment extends BaseFragment{
     @Override
     public void afterInitView() {
         if(hasTargetId){
+
+            //设置 消息接收监听,和 位置请求监听
+            application.mainService.setTargetId(mTargetId);
+
             layout_set.setVisibility(View.GONE);
             layout_content.setVisibility(View.VISIBLE);
 
-            mConversationType = Conversation.ConversationType.PRIVATE;
         /* 新建 ConversationFragment 实例，通过 setUri() 设置相关属性*/
             ConversationFragment fragment = new ConversationFragment();
             Uri uri = Uri.parse("rong://" + mContext. getApplicationInfo().packageName).buildUpon()
-                    .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
+                    .appendPath("conversation").appendPath(Conversation.ConversationType.PRIVATE.getName().toLowerCase())
                     .appendQueryParameter("targetId", mTargetId).build();
             fragment.setUri(uri);
         /* 加载 ConversationFragment */
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.add(R.id.layout_content, fragment);
             transaction.commit();
+            tv_title.setText(application.userAccount.target_nickname);
+
         }else{
             //还没有设置 targetId
             layout_set.setVisibility(View.VISIBLE);
             layout_content.setVisibility(View.GONE);
         }
     }
+
 
     @Override
     public void onClickEvent(View v) {
@@ -126,7 +158,7 @@ public  class TalkFragment extends BaseFragment{
         MyHttpUtil.doPost(url, param, new MyHttpUtil.MyHttpCallBack() {
             @Override
             public void onResponse(final String response) {
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
@@ -139,9 +171,12 @@ public  class TalkFragment extends BaseFragment{
                                 // 成功
                                 JSONObject data=jsonObject.getJSONObject("data");
                                 int target_uid=data.getInt("target_uid");
+                                String target_nickname=data.getString("target_nickname");
+                                mySharedPreferences.saveTargetNickname(target_nickname);
                                 mySharedPreferences.saveTargetId(target_uid);
                                 mTargetId=target_uid+"";
                                 application.userAccount.target_uid=target_uid;
+                                application.userAccount.target_nickname=target_nickname;
                                 hasTargetId=true;
                                 afterInitView();
                             } else if (err == 1) {
@@ -199,4 +234,12 @@ public  class TalkFragment extends BaseFragment{
             }
         });
     }
+
+
+
+
+
+
+
+
 }

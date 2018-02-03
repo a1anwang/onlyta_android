@@ -9,10 +9,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.a1anwang.onlyta.R;
+import com.a1anwang.onlyta.rongyunplugin.RongyunEvent;
 import com.a1anwang.onlyta.ui.fragment.ContactFragment;
 import com.a1anwang.onlyta.ui.fragment.FindFragment;
 import com.a1anwang.onlyta.ui.fragment.MeFragment;
 import com.a1anwang.onlyta.ui.fragment.TalkFragment;
+import com.a1anwang.onlyta.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
 public class MainActivity extends  BaseActivity implements ViewPager.OnPageChangeListener {
     private ImageView mImageChats, mImageContact, mImageFind, mImageMe;
     private TextView mTextChats, mTextContact, mTextFind, mTextMe;
-    private ImageView moreImage, mSearchImageView;
+    //private ImageView moreImage, mSearchImageView;
 
     private ViewPager mViewPager;
     private List<Fragment> mFragments = new ArrayList<>();
@@ -35,7 +37,21 @@ public class MainActivity extends  BaseActivity implements ViewPager.OnPageChang
 
     @Override
     public void beforeInitView() {
+        setCurrentUserInfo();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        toHome();
+    }
+
+    private void setCurrentUserInfo(){
+        String uid=mySharedPreferences.getUserId()+"";
+        String nickname=mySharedPreferences.getNickname();
+        String headImageURL=mySharedPreferences.getHeadImageURL();
+        RongyunEvent.getInstance().setCurrentUserinfo(uid,nickname,headImageURL);
+        LogUtils.e(LogUtils.TAG_1,"headImageURL:"+headImageURL);
     }
 
     @Override
@@ -54,15 +70,15 @@ public class MainActivity extends  BaseActivity implements ViewPager.OnPageChang
         mTextFind = (TextView) findViewById(R.id.tab_text_find);
         mTextMe = (TextView) findViewById(R.id.tab_text_me);
 
-        moreImage = (ImageView) findViewById(R.id.btn_more);
-        mSearchImageView = (ImageView) findViewById(R.id.btn_search);
+//        moreImage = (ImageView) findViewById(R.id.btn_more);
+//        mSearchImageView = (ImageView) findViewById(R.id.btn_search);
 
         chatRLayout.setOnClickListener(this);
         contactRLayout.setOnClickListener(this);
         foundRLayout.setOnClickListener(this);
         mineRLayout.setOnClickListener(this);
-        moreImage.setOnClickListener(this);
-        mSearchImageView.setOnClickListener(this);
+//        moreImage.setOnClickListener(this);
+//        mSearchImageView.setOnClickListener(this);
 
         mFragments.add(new TalkFragment());
         mFragments.add(new ContactFragment());
@@ -94,6 +110,7 @@ public class MainActivity extends  BaseActivity implements ViewPager.OnPageChang
     @Override
     public void afterInitView() {
         setHeadVisibility(View.GONE);
+
     }
 
     @Override

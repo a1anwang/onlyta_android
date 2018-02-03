@@ -19,6 +19,7 @@ import android.widget.ViewFlipper;
 import com.a1anwang.onlyta.App;
 import com.a1anwang.onlyta.R;
 import com.a1anwang.onlyta.ui.views.MyProgressDialog;
+import com.a1anwang.onlyta.util.LogUtils;
 import com.a1anwang.onlyta.util.MySharedPreferences;
 
 /**
@@ -46,9 +47,20 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected TextView mTitleText;
     protected TextView mHeadRightText;
 
+    protected void onResume() {
+        super.onResume();
+        LogUtils.e(LogUtils.TAG_1," onResume:"+BaseActivity.this.getClass().getSimpleName());
+
+    }
+
+    protected void onPause() {
+        super.onPause();
+
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtils.e(LogUtils.TAG_1," onCreate:"+BaseActivity.this.getClass().getSimpleName());
         super.setContentView(R.layout.activity_base);
         mContext = this;
         application= (App) getApplication();
@@ -77,15 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         mTitleText = (TextView) super.findViewById(R.id.tv_title);
     }
 
-    protected void onResume() {
-        super.onResume();
 
-    }
-
-    protected void onPause() {
-        super.onPause();
-
-    }
 
 
 
@@ -293,7 +297,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         startActivityForResult(intent, requestCode);
     }
 
-    MyProgressDialog myProgressDialog;
+    private MyProgressDialog myProgressDialog;
     public void showProgressDialog(String title) {
         if (myProgressDialog == null) {
             myProgressDialog = new MyProgressDialog(this);
@@ -308,5 +312,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (myProgressDialog != null) {
             myProgressDialog.dismiss();
         }
+    }
+
+    /**
+     * 回到桌面,相当于按下home键
+     */
+    public void toHome(){
+        Intent home=new Intent(Intent.ACTION_MAIN);
+        home.addCategory(Intent.CATEGORY_HOME);
+        startActivity(home);
     }
 }

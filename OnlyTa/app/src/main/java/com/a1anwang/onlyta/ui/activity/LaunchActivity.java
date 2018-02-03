@@ -1,10 +1,12 @@
 package com.a1anwang.onlyta.ui.activity;
 
-import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.IBinder;
 import android.os.StrictMode;
 import android.view.View;
 import android.view.animation.Animation;
@@ -12,12 +14,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.a1anwang.onlyta.R;
+import com.a1anwang.onlyta.rongyunplugin.RongyunEvent;
+import com.a1anwang.onlyta.service.MainService;
 import com.a1anwang.onlyta.util.LogUtils;
 
-import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
-
-import static com.a1anwang.onlyta.util.LogUtils.TAG_1;
 
 /**
  * Created by a1anwang.com on 2018/1/17.
@@ -68,7 +69,62 @@ public class LaunchActivity extends  BaseActivity implements Animation.Animation
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                 .detectLeakedSqlLiteObjects().detectLeakedClosableObjects()
                 .penaltyLog().build());
+
+
     }
+
+
+    private void startAndBindMainService() {
+        Intent intent=new Intent(this, MainService.class);
+        startService(intent);
+        bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    ServiceConnection serviceConnection=new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            LogUtils.e(" onServiceConnected");
+            application.mainService=((MainService.LocalBinder) service).getService();
+            if(application.userAccount==null){
+                //未登录
+                startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
+                LaunchActivity.this.finish();
+            } else {
+                //已登录,先连接rongyun,连接过程是在 Mainservice里面进行
+                if(RongyunEvent.getInstance().isConnectedIM()){
+                    LogUtils.e("已成功连接IM 直接进入主页面");
+                    startActivity(MainActivity.class);
+                    finish();
+                }else{
+                    LogUtils.e("未连接IM 等待连接IM成功");
+                    RongyunEvent.getInstance().addConnectListener(new RongyunEvent.RongyunConnectListener() {
+                        @Override
+                        public void onTokenIncorrect() {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String userid) {
+                            LogUtils.e("成功连接IM 直接进入主页面");
+                            startActivity(MainActivity.class);
+                            finish();
+                        }
+
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
+
+                        }
+                    });
+                }
+
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     public void onClickEvent(View v) {
@@ -78,17 +134,8 @@ public class LaunchActivity extends  BaseActivity implements Animation.Animation
 
     @Override
     public void onAnimationEnd(Animation arg0) {
+        startAndBindMainService();
 
-        if(application.userAccount==null){
-            //未登录
-            startActivity(new Intent(this, LoginActivity.class));
-        } else {
-            //已登录,先连接rongyun
-
-            connectIM(application.userAccount.rongyun_token);
-        }
-
-        this.finish();
     }
 
     @Override
@@ -102,63 +149,26 @@ public class LaunchActivity extends  BaseActivity implements Animation.Animation
 
     }
 
-    /**
-     * <p>连接服务器，在整个应用程序全局，只需要调用一次，需在 {RongIM.init(this);} 之后调用。</p>
-     * <p>如果调用此接口遇到连接失败，SDK 会自动启动重连机制进行最多10次重连，分别是1, 2, 4, 8, 16, 32, 64, 128, 256, 512秒后。
-     * 在这之后如果仍没有连接成功，还会在当检测到设备网络状态变化时再次进行重连。</p>
-     *
-     * @param token    从服务端获取的用户身份令牌（Token）。
 
-     */
-    public void connectIM(String token) {
+//    public void connectIM(String token) {
+//
+//        RongyunEvent.getInstance().connectIM(this, token, new RongyunEvent.RongyunConnectListener() {
+//            @Override
+//            public void onTokenIncorrect() {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(String userid) {
 
-        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
+//            }
+//
+//            @Override
+//            public void onError(RongIMClient.ErrorCode errorCode) {
+//
+//            }
+//        });
+//
+//    }
 
-            RongIM.connect(token, new RongIMClient.ConnectCallback() {
-
-                /**
-                 * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
-                 *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
-                 */
-                @Override
-                public void onTokenIncorrect() {
-                    LogUtils.e(TAG_1," onTokenIncorrect");
-                }
-
-                /**
-                 * 连接融云成功
-                 * @param userid 当前 token 对应的用户 id
-                 */
-                @Override
-                public void onSuccess(String userid) {
-                    LogUtils.e(TAG_1," onSuccess userid:"+userid);
-
-
-
-                    startActivity(MainActivity.class);
-                    finish();
-                }
-
-                /**
-                 * 连接融云失败
-                 * @param errorCode 错误码，可到官网 查看错误码对应的注释
-                 */
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-                    LogUtils.e(TAG_1," onError errorCode:"+errorCode);
-                }
-            });
-        }
-    }
-
-    public   String getCurProcessName(Context context) {
-        int pid = android.os.Process.myPid();
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
-            if (appProcess.pid == pid) {
-                return appProcess.processName;
-            }
-        }
-        return null;
-    }
 }

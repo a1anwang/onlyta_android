@@ -3,11 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+   
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:text="我 "
-        android:textSize="30sp"
-        android:layout_height="match_parent" />
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:text="自动回复TA的位置请求"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switch_auto_location"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_height="30dp" />
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -12,5 +12,8 @@ public class LogUtils {
 		if(open)
 		Log.e(TAG, msg);
 	}
-	
+	public static void e(String msg){
+		if(open)
+			Log.e(TAG_1, msg);
+	}
 }

@@ -151,6 +151,8 @@
                 android:onClick="getCodeAction"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
                 android:text="@string/get_verification_code"
                 android:textColor="@color/white"
                 android:textSize="14sp" />

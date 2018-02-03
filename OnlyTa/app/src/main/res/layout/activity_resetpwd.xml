@@ -84,6 +84,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
                 android:onClick="getCodeAction"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
