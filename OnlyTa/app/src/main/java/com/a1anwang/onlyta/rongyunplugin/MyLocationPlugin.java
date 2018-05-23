@@ -35,7 +35,7 @@ public class MyLocationPlugin  implements IPluginModule {
     public void onClick(Fragment fragment, RongExtension rongExtension) {
         LogUtils.e("MyLocationPlugin onClick ");
         if(listener!=null){
-            listener.onTA_Location_Cilck();
+            listener.onTA_Location_Click();
         }
     }
 
@@ -43,8 +43,8 @@ public class MyLocationPlugin  implements IPluginModule {
     public void onActivityResult(int i, int i1, Intent intent) {
 
     }
-    RongyunEvent.OnTA_Location_CilckListener listener;
-    public void setOnClickListener(RongyunEvent.OnTA_Location_CilckListener listener) {
+    RongyunEvent.OnTA_Location_ClickListener listener;
+    public void setOnClickListener(RongyunEvent.OnTA_Location_ClickListener listener) {
         this.listener=listener;
     }
 }

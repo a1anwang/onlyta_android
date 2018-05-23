@@ -37,7 +37,7 @@ public class TALocationRequestMessageItemProvider extends IContainerItemProvider
             holder.tv_content.setBackgroundResource(R.drawable.bg_round_solid_light_gray_15dp);
             holder.tv_content.setTextColor(Color.DKGRAY);
         }
-        holder.tv_content.setText("[立马告诉老子你在哪里]");
+        holder.tv_content.setText(taLocationRequestMessage.getContent());
     }
 
     @Override

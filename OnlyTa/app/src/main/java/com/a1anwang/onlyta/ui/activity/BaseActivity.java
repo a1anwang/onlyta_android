@@ -1,5 +1,4 @@
 package com.a1anwang.onlyta.ui.activity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +21,8 @@ import com.a1anwang.onlyta.ui.views.MyProgressDialog;
 import com.a1anwang.onlyta.util.LogUtils;
 import com.a1anwang.onlyta.util.MySharedPreferences;
 
+
+
 /**
  * Created by a1anwang.com on 2017/12/27.
  */
@@ -42,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private ViewFlipper mContentView;
     protected RelativeLayout mHeadLayout;
     protected ImageButton mBtnLeft;
-    protected TextView   mHeadLeftText;
+    protected TextView mHeadLeftText;
     protected Button mBtnRight;
     protected TextView mTitleText;
     protected TextView mHeadRightText;
@@ -263,7 +264,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setTitle(String title, boolean hideLeftIcon) {
         mTitleText.setText(title);
         if (hideLeftIcon) {
-             mBtnLeft.setVisibility(View.GONE);
+            mBtnLeft.setVisibility(View.GONE);
         } else {
             mBtnLeft.setVisibility(View.VISIBLE);
         }

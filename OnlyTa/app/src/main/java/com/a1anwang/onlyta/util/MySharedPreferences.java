@@ -129,4 +129,11 @@ public class MySharedPreferences {
 		return preferences.getBoolean("AutoRespondLocation",true);
 	}
 
+	public long getLastLocationRequestTime( ){
+		return preferences.getLong("LastLocationRequestTime",0);
+	}
+	public void saveLastLocationRequestTime(long time ){
+		editor.putLong("LastLocationRequestTime",time);
+		editor.commit();
+	}
 }

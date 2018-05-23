@@ -17,6 +17,7 @@ import com.a1anwang.onlyta.R;
 import com.a1anwang.onlyta.rongyunplugin.RongyunEvent;
 import com.a1anwang.onlyta.rongyunplugin.custommessage.TALocationRequestMessage;
 import com.a1anwang.onlyta.rongyunplugin.custommessage.TALocationResponeMessage;
+import com.a1anwang.onlyta.ui.activity.MainActivity;
 import com.a1anwang.onlyta.util.AmapLocationManager;
 import com.a1anwang.onlyta.util.LogUtils;
 import com.a1anwang.onlyta.util.MConfig;
@@ -24,6 +25,7 @@ import com.a1anwang.onlyta.util.MyConstants;
 import com.a1anwang.onlyta.util.MyMusicPlayer;
 import com.a1anwang.onlyta.util.MySharedPreferences;
 import com.a1anwang.onlyta.util.MyUtils;
+import com.a1anwang.onlyta.util.ToastUtils;
 import com.a1anwang.onlyta.util.httputil.MyHttpUtil;
 
 import org.json.JSONException;
@@ -116,6 +118,10 @@ public class MainService extends Service{
                 if(action.equals(Action_Click_Foreground_Notification)){
                     //点击了主通知栏
                     LogUtils.e("点击了主通知栏");
+                    Intent intent1=new Intent(MainService.this, MainActivity.class);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent1);
+
                 }
             }
         };
@@ -161,6 +167,7 @@ public class MainService extends Service{
         public void onSuccess(Message message) {
             MessageContent messageContent=message.getContent();
             if(messageContent.getClass().getSimpleName().equals(TALocationRequestMessage.class.getSimpleName())) {
+                MySharedPreferences.getInstance(MainService.this).saveLastLocationRequestTime(System.currentTimeMillis());
                 //位置请求发送成功之后,进行一个延时5s判断,如果对方没有任何回应,说明对方app挂掉了,那么这个时候发送一个系统消息告知对方不在线
                 startDelayCheck();
             }
@@ -172,18 +179,28 @@ public class MainService extends Service{
         }
     };
 
-    RongyunEvent.OnTA_Location_CilckListener onTA_location_clickListener= new RongyunEvent.OnTA_Location_CilckListener() {
+    RongyunEvent.OnTA_Location_ClickListener onTA_location_clickListener= new RongyunEvent.OnTA_Location_ClickListener() {
         @Override
-        public void onTA_Location_Cilck() {
-            //点击了 TA的位置,发送一条自定义消息:立马告诉老子你的位置
-            RongyunEvent.getInstance().sendLocationRequestMessage(mTargetId, messageSendListener );
+        public void onTA_Location_Click() {
+            long lastRequestTime=MySharedPreferences.getInstance(MainService.this).getLastLocationRequestTime();
+            long currentTime=System.currentTimeMillis();
+            if((currentTime-lastRequestTime)>MyConstants.Location_Request_Interval){
+                //点击了 TA的位置,发送一条自定义消息:立马告诉老子你的位置
+                RongyunEvent.getInstance().sendLocationRequestMessage(mTargetId, messageSendListener );
+            }else{
+                ToastUtils.showToast(MainService.this,"1分钟内只可以请求一次",1500);
+            }
+
         }
     };
 
     RongyunEvent.OnReceiveMessageListener onReceiveMessageListener=new RongyunEvent.OnReceiveMessageListener() {
         @Override
         public void onReceived(Message message, int i) {
-            musicPlayer.startAlarm(MainService.this);
+
+            LogUtils.e(LogUtils.TAG_1,"收到消息:"+message.toString());
+
+
             MessageContent messageContent=message.getContent();
             if(messageContent.getClass().getSimpleName().equals(TALocationRequestMessage.class.getSimpleName())){
                 //这是自定义消息,请求位置信息
@@ -209,19 +226,16 @@ public class MainService extends Service{
             }else if(messageContent.getClass().getSimpleName().equals(TALocationResponeMessage.class.getSimpleName())){
                 //收到位置请求回应
                 cancelDelayCheck();
-
-            }else{//收到融云默认类型消息,那么取出其中的 对方用户信息,更新到UI上,这样对方的昵称或者头像修改之后可以及时更新
-                LogUtils.e(LogUtils.TAG_1,"收到消息:"+message.toString());
-                if(message.getContent().getUserInfo()!=null){
-                    final String target_nickname=message.getContent().getUserInfo().getName();
-                    if(target_nickname!=null){
-                        Intent intent=new Intent(Action_Update_Target_Nickname);
-                        intent.putExtra(Extra_Target_Nickname,target_nickname);
-                        sendBroadcast(intent);
-                    }
-
+            }
+            if(!message.getUId().equals(application.userAccount.target_uid+""))
+                return;//收到的消息不是 关联的用户的,忽略
+            if(message.getContent().getUserInfo()!=null){ //收到融云默消息,那么取出其中的 对方用户信息,更新到UI上,这样对方的昵称或者头像修改之后可以及时更新
+                final String target_nickname=message.getContent().getUserInfo().getName();
+                if(target_nickname!=null){
+                    Intent intent=new Intent(Action_Update_Target_Nickname);
+                    intent.putExtra(Extra_Target_Nickname,target_nickname);
+                    sendBroadcast(intent);
                 }
-
             }
         }
     };
@@ -265,7 +279,7 @@ public class MainService extends Service{
 
     /**
      *
-     * @param checkType  0代表 检测状态同时如果状态为不在线的话,有server 代表对方发送一个单聊消息过来,其他参数暂未定义
+     * @param checkType  0代表 检测状态同时如果状态为不在线的话,由server 代表对方发送一个单聊消息过来,其他参数暂未定义
      */
     private void checkTargetOnlineState(int checkType) {
         String url = MConfig.ServerIP + "checkTargetOnlineState.php";

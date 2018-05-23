@@ -20,6 +20,8 @@ import io.rong.imlib.model.MessageContent;
 public class TALocationResponeMessage extends MessageContent {
     private String content; // "0" 未开启自动回应位置功能  "1",已开启,正在定位请等待
 
+
+
     public void setContent(String content) {
         this.content = content;
     }

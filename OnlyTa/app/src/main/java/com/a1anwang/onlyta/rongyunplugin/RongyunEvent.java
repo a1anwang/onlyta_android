@@ -108,7 +108,7 @@ public class RongyunEvent {
         }
     }
 
-    public void setOnTA_Location_ClickListener(Context context, final OnTA_Location_CilckListener listener){
+    public void setOnTA_Location_ClickListener(Context context, final OnTA_Location_ClickListener listener){
 
         List<IExtensionModule> moduleList = RongExtensionManager.getInstance().getExtensionModules();
         MyLocationPlugin myLocationPlugin = null;
@@ -151,6 +151,7 @@ public class RongyunEvent {
         //pushContent：当客户端离线，接受推送通知时，通知的内容会显示为 pushContent 的内容。如果发送的是自定义消息，该字段必须填写，否则会无法收到该消息的推送。
         //pushData：收到该消息的推送时的附加信息。如果设置该字段，用户在收到该消息的推送时，能通过推送监听 onNotificationMessageArrived() 里的参数 PushNotificationMessage 的 getPushData() 方法获取。
         TALocationRequestMessage messageContent=new TALocationRequestMessage();
+        messageContent.setContent("[立马告诉老子你在哪里]");
         Message message1=new Message();
         message1.setTargetId(mTargetId);
         message1.setConversationType( Conversation.ConversationType.PRIVATE);
@@ -189,8 +190,18 @@ public class RongyunEvent {
         respondmessage.setTargetId(mTargetId);
         respondmessage.setConversationType( Conversation.ConversationType.PRIVATE);
 
+//        ""
+
         TALocationResponeMessage messafeContent= new TALocationResponeMessage();
-        messafeContent.setContent(response);
+        if(response.equals("0")){
+            messafeContent.setContent("[朕已阅,但朕比较忙,懒得告诉你位置]");
+        }else if(response.equals("1")){
+            messafeContent.setContent("[朕已阅,正在定位中,定位好立马发给你]");
+
+        }else if(response.equals("3")){
+            messafeContent.setContent("[我暂时不在线,可能原因:app未加入白名单被清理(此条消息为系统自动发送)]");
+
+        }
         respondmessage.setContent(messafeContent);
 
         RongIM.getInstance().sendMessage(respondmessage,"","",new IRongCallback.ISendMessageCallback(){
@@ -348,8 +359,8 @@ public class RongyunEvent {
         public void onError(RongIMClient.ErrorCode errorCode);
     }
 
-    public interface OnTA_Location_CilckListener{
-        public void onTA_Location_Cilck();
+    public interface OnTA_Location_ClickListener{
+        public void onTA_Location_Click();
 
     }
     public interface OnMessageSendListener{

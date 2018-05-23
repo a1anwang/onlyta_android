@@ -51,6 +51,7 @@ BroadcastReceiver receiver=new BroadcastReceiver() {
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(MainService.Action_Update_Target_Nickname)){
             String nickname=intent.getStringExtra(MainService.Extra_Target_Nickname);
+
             tv_title.setText(nickname);
         }
     }

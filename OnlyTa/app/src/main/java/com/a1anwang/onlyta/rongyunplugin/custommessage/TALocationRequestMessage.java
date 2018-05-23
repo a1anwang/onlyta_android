@@ -20,6 +20,14 @@ import io.rong.imlib.model.MessageContent;
 public class TALocationRequestMessage  extends MessageContent {
     private String content;//消息属性，可随意定义 ,暂时没用到
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
     public  TALocationRequestMessage() {
             super();
     }

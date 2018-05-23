@@ -42,13 +42,8 @@ public class TALocationResponeMessageItemProvider extends IContainerItemProvider
 
         LogUtils.e(LogUtils.TAG_1," content:"+taLocationResponeMessage.getContent() +" "+taLocationResponeMessage.toString());
         if(content!=null){
-            if(content.equals("0")){
-                holder.tv_content.setText("[朕已阅,但朕比较忙,懒得告诉你位置]");
-            }else if(content.equals("1")){
-                holder.tv_content.setText("[朕已阅,正在定位中,定位好立马发给你]");
-            }else if(content.equals("3")){
-                holder.tv_content.setText("[我暂时不在线,可能原因:app未加入白名单被清理(此条消息为系统自动发送)]");
-            }
+            holder.tv_content.setText(content);
+
         }
     }
 

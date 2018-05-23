@@ -6,7 +6,8 @@ package com.a1anwang.onlyta.util;
 
 public class MyConstants {
 
-   public  static  final  int Location_Request_OverTime=5*1000;
+   public  static  final  int Location_Request_OverTime=10*1000;
+   public  static  final  int Location_Request_Interval=60*1000;//60秒
 
 
 
