@@ -32,7 +32,7 @@ public class App extends Application{
         RongyunEvent.getInstance().afterInit();
 
         initUserAccount();
-
+        //
     }
 
     private void initUserAccount() {
