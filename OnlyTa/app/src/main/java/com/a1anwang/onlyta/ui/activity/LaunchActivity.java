@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.StrictMode;
 import android.view.View;
@@ -76,7 +77,12 @@ public class LaunchActivity extends  BaseActivity implements Animation.Animation
 
     private void startAndBindMainService() {
         Intent intent=new Intent(this, MainService.class);
-        startService(intent);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        }else{
+            startService(intent);
+        }
         bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE);
     }
 

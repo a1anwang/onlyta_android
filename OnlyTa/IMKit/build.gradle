@@ -2,9 +2,9 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '28.0.3'
     defaultConfig {
-        minSdkVersion 15
+
         targetSdkVersion 23
         versionCode 2017120716
         versionName "2.8.24 Dev"
@@ -34,5 +34,5 @@ android {
 dependencies {
     compile fileTree(dir: 'src/main/libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:23.4.0'
-    compile project (':IMLib')
+    api project (':IMLib')
 }

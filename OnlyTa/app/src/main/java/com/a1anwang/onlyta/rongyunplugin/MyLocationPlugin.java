@@ -19,9 +19,7 @@ public class MyLocationPlugin  implements IPluginModule {
     @Override
     public Drawable obtainDrawable(Context context) {
         LogUtils.e(LogUtils.TAG_1," context:"+context);
-
         Drawable drawable=context.getResources().getDrawable(R.drawable.icon_location_ta);
-        LogUtils.e(LogUtils.TAG_1," drawable:"+drawable);
 
         return drawable;
     }

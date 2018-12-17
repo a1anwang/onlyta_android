@@ -1,5 +1,8 @@
 package com.a1anwang.onlyta.service;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -10,7 +13,6 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 
 import com.a1anwang.onlyta.App;
 import com.a1anwang.onlyta.R;
@@ -129,20 +131,27 @@ public class MainService extends Service{
     }
 
     private void startForeground() {
+        String channelID = "1";
 
+        String channelName = "Main";
         Intent notificationIntent = new Intent(Action_Click_Foreground_Notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-//实例化NotificationCompat.Builde并设置相关属性
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                //设置小图标
-                .setSmallIcon(R.mipmap.ic_launcher)
-                //设置通知标题
-                .setContentTitle(getString(R.string.app_name)+"正在运行")
-                .setContentIntent(pendingIntent);
-        //定义一个notification
-
-        startForeground(1,builder.build());
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelID,channelName, NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(channel);
+            Notification notification = new Notification.Builder(getApplicationContext(),channelID).setSmallIcon(R.mipmap.ic_launcher).setContentTitle(getString(R.string.app_name)+"正在运行").setContentIntent(pendingIntent).build();
+            startForeground(1, notification);
+        }else{
+            Notification.Builder builder = new Notification.Builder(this)
+                    //设置小图标
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    //设置通知标题
+                    .setContentTitle(getString(R.string.app_name)+"正在运行")
+                    .setContentIntent(pendingIntent);
+            startForeground(1,builder.build());
+        }
     }
 
     public void setTargetId(String targetId){
@@ -265,6 +274,7 @@ public class MainService extends Service{
         new AmapLocationManager(this, new AmapLocationManager.OnLocationListener() {
             @Override
             public void onLocationChanged(AmapLocationManager.LocationInfo mLocationInfo) {
+
                 //获取到位置信息,然后发送给对方
                 RongyunEvent.getInstance().sendLocationMessage(mTargetId,mLocationInfo.getLatitude(),mLocationInfo.getLongitude(),mLocationInfo.getAddress(),mLocationInfo.getStaticmapURL(),messageSendListener);
             }

@@ -60,12 +60,12 @@
         "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/layout/rc_fr_image.xml"
     },
     {
-        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/layout/rc_item_text_message_evaluate.xml",
-        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/layout/rc_item_text_message_evaluate.xml"
-    },
-    {
         "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/layout/rc_item_public_service_input_menu_item.xml",
         "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/layout/rc_item_public_service_input_menu_item.xml"
+    },
+    {
+        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/layout/rc_item_text_message_evaluate.xml",
+        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/layout/rc_item_text_message_evaluate.xml"
     },
     {
         "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/layout/rc_ext_sub_menu_item.xml",
@@ -172,12 +172,12 @@
         "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/layout/rc_ac_camera.xml"
     },
     {
-        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/layout/rc_picsel_preview.xml",
-        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/layout/rc_picsel_preview.xml"
-    },
-    {
         "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/layout/rc_fr_public_service_inf.xml",
         "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/layout/rc_fr_public_service_inf.xml"
+    },
+    {
+        "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/layout/rc_picsel_preview.xml",
+        "source": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/src/main/res/layout/rc_picsel_preview.xml"
     },
     {
         "merged": "/Users/smartwallit/Desktop/Alan_project/onlyTa/android/code/onlyta_android/OnlyTa/IMKit/build/intermediates/res/merged/debug/layout/rc_cs_alert_human_evaluation.xml",
